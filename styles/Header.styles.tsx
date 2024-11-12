@@ -28,13 +28,13 @@ export const styles = StyleSheet.create({
     fontSize: 30,
   },
   rowTopSecondContainer: {
-    flexDirection: "row",
+    flex: 1,
+    alignContent: "center",
     backgroundColor: "#ffec99",
     justifyContent: "center",
     alignItems: "center",
     borderColor: "orange",
-    borderWidth: 0,
-    borderBottomWidth: 2,
+    borderWidth: 1,
   },
   darkRowTopSecondContainer: {
     flexDirection: "row",
@@ -43,11 +43,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "black",
     borderWidth: 2,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
   },
-  buttonruta: {
-    width: "50%",
-  },
+
   shadoxboxing: {
     shadowColor: "#000",
     shadowOffset: {
@@ -62,7 +60,7 @@ export const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     textTransform: "uppercase",
-    marginLeft: 50,
+    marginLeft: 0,
   },
   darkbutton: {
     color: "black",

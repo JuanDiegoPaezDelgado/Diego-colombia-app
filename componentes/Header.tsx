@@ -12,12 +12,6 @@ const Header = () => {
         <Text style={[styles.bar, styles.shadoxboxing]}>
           {headerData[2].text}
         </Text>
-
-        {
-          <Pressable style={styles.darkicon}>
-            <Ionicons name="contrast" size={24} color="black" />
-          </Pressable>
-        }
       </View>
     </View>
   );

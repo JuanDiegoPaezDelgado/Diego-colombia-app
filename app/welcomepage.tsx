@@ -2,7 +2,7 @@
 
 import { View, Text, Image, Button } from "react-native";
 import React from "react";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { lightTheme } from "../styles/theme";
 
 const WelcomePage = () => {
@@ -24,11 +24,9 @@ const WelcomePage = () => {
         source={require("../assets/welcome.jpg")}
         style={{ width: 150, height: 150, marginBottom: 20 }}
       />
-      <Button
-        title="Ir al Portfolio"
-        color={lightTheme.button}
-        onPress={() => router.push("/hobbies")}
-      />
+      <Link href={"/hobbies"}>
+        <Text>Ir al portafolio</Text>
+      </Link>
     </View>
   );
 };
