@@ -5,7 +5,7 @@ export default () => {
   return (
     <Tabs>
       <Tabs.Screen name="hobbies" options={{ headerShown: false }} />
-      <Tabs.Screen name="qrpage" />
+      <Tabs.Screen name="qrpage" options={{ headerShown: false }} />
     </Tabs>
   );
 };

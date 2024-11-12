@@ -21,7 +21,7 @@ const WelcomePage = () => {
         Bienvenido a mi App
       </Text>
       <Image
-        source={{ uri: "https://via.placeholder.com/150" }}
+        source={require("../assets/welcome.jpg")}
         style={{ width: 150, height: 150, marginBottom: 20 }}
       />
       <Button

@@ -4,14 +4,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../styles/Header.styles";
 import { headerData } from "../Data/DataHeader";
 
-export type HeaderProps = {
-  text: string;
-  setDisplayMyQR: (value: boolean) => void;
-  setDarkMode: (value: boolean) => void;
-  handleDarkMode: () => void;
-  isDarkMode: boolean;
-};
-
 const Header = () => {
   return (
     <View style={styles.topContainer}>
