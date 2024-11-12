@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     fontStyle: "italic",
     fontSize: 16,
-    backgroundColor: "lightgray",
+    backgroundColor: "#ffec99",
     borderRadius: 80,
     margin: 20,
   },

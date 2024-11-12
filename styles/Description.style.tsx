@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   container: { flexDirection: "row", alignItems: "center" },
   card: {
     margin: 10,
-    backgroundColor: "lightgray",
+    backgroundColor: "#ffec99",
     padding: 10,
     borderRadius: 10,
     width: "70%",
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
   titleText: {
-    color: "beriblak",
+    color: "blue",
     fontWeight: "900",
     textTransform: "capitalize",
     fontSize: 20,
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     height: "100%",
-    backgroundColor: "yellow",
+    backgroundColor: "#ffc9c9",
   },
   darkBodyTails: {
     marginTop: 0,
