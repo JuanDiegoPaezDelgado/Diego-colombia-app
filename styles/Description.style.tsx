@@ -13,11 +13,14 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     width: "70%",
+    borderColor: "orange",
+    borderWidth: 1,
   },
   title: {
     textAlign: "center",
     fontWeight: "700",
     fontSize: 20,
+    color: "blue",
   },
   titleText: {
     color: "blue",

@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   cosasQmeGustanMuxoEstails: {
-    borderColor: "black",
-    borderWidth: 3,
     borderStyle: "dashed",
     padding: 20,
     color: "black",
@@ -12,7 +10,9 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#ffec99",
     borderRadius: 80,
-    margin: 20,
+    margin: 18,
+    borderColor: "orange",
+    borderWidth: 1,
   },
   darkcosasQmeGustanMuxoEstails: {
     borderColor: "green",

@@ -3,7 +3,7 @@
 import { View, Text, Image, Button } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
-import { lightTheme } from "./theme";
+import { lightTheme } from "../styles/theme";
 
 const WelcomePage = () => {
   const router = useRouter();

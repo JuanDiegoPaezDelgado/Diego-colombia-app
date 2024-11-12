@@ -2,9 +2,11 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   topContainer: {
-    height: "14.8%",
+    height: "14.9%",
     paddingTop: 50,
     width: "100%",
+    borderColor: "orange",
+    borderWidth: 1,
   },
   darkicon: {
     marginLeft: 50,
@@ -12,10 +14,12 @@ export const styles = StyleSheet.create({
     borderColor: "black",
   },
   firsttoprowContainer: {
-    backgroundColor: "lightgray",
+    backgroundColor: "#ffec99",
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 30,
+    borderColor: "orange",
+    borderWidth: 1,
   },
   darkfirsttoprowContainer: {
     backgroundColor: "white",
@@ -25,11 +29,11 @@ export const styles = StyleSheet.create({
   },
   rowTopSecondContainer: {
     flexDirection: "row",
-    backgroundColor: "darkgray",
+    backgroundColor: "#ffec99",
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "black",
-    borderWidth: 2,
+    borderColor: "orange",
+    borderWidth: 0,
     borderBottomWidth: 2,
   },
   darkRowTopSecondContainer: {
