@@ -5,18 +5,14 @@ import { styles } from "../styles/Description.style";
 import { cardsData, dontLikeCardsData } from "../Data/Data";
 import Card from "./List";
 
-export type DescriptionProps = {
-  isDarkMode: boolean;
-};
-
-const DescriptionCard = ({ isDarkMode }: DescriptionProps) => {
+const DescriptionCard = () => {
   return (
     <>
-      <View style={isDarkMode ? styles.bodystails : styles.darkBodyTails}>
+      <View style={styles.bodystails}>
         <View>
           <View style={styles.container}>
             <Image style={styles.avatar} source={descriptionData.image} />
-            <View style={isDarkMode ? styles.card : styles.lightCards}>
+            <View style={styles.card}>
               <Text style={styles.title}>{descriptionData.title}</Text>
               <Text>{descriptionData.description}</Text>
             </View>
@@ -25,16 +21,12 @@ const DescriptionCard = ({ isDarkMode }: DescriptionProps) => {
           <Text style={styles.titleText}>Cosas que me gustan mucho:</Text>
           <FlatList
             data={cardsData}
-            renderItem={({ item }) => (
-              <Card text={item.text} isDarkMode={isDarkMode} />
-            )}
+            renderItem={({ item }) => <Card text={item.text} />}
           />
           <Text style={styles.titleText}>Cosas que no me gustan mucho:</Text>
           <FlatList
             data={dontLikeCardsData}
-            renderItem={({ item }) => (
-              <Card text={item.text} isDarkMode={isDarkMode} />
-            )}
+            renderItem={({ item }) => <Card text={item.text} />}
           />
         </View>
       </View>

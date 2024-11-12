@@ -1,15 +1,10 @@
 import { View, Text } from "react-native";
 import React from "react";
 import QRCode from "react-native-qrcode-svg";
+import MyQr from "../../componentes/MyQr";
 
-const MyQr = () => {
-  return (
-    <View style={{ justifyContent: "center" }}>
-      <View style={{ flex: 1, alignItems: "center" }}>
-        <QRCode value="https://github.com/JuanDiegoPaezDelgado" />
-      </View>
-    </View>
-  );
+const Qr = () => {
+  return <MyQr />;
 };
 
-export default MyQr;
+export default Qr;

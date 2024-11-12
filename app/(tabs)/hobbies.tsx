@@ -1,12 +1,8 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 
 const hobbies = () => {
-  return (
-    <View>
-      <Text>holaa</Text>
-    </View>
-  );
+  return <></>;
 };
 
 export default hobbies;

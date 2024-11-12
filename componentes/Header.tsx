@@ -15,7 +15,7 @@ export type HeaderProps = {
 const Header = ({
   setDisplayMyQR,
   handleDarkMode,
-  isDarkMode, 
+  isDarkMode,
 }: HeaderProps) => {
   return (
     <View style={styles.topContainer}>

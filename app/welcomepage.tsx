@@ -3,7 +3,7 @@
 import { View, Text, Image, Button } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
-import { lightTheme } from "./theme";
+import { lightTheme } from "../styles/theme";
 
 const WelcomePage = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const WelcomePage = () => {
         Bienvenido a mi App
       </Text>
       <Image
-        source={{ uri: "https://via.placeholder.com/150" }}
+        source={require("assets\\favicon.png")}
         style={{ width: 150, height: 150, marginBottom: 20 }}
       />
       <Button
