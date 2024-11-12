@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
+    backgroundColor: "#ffc9c9",
   },
   welcomeText: { color: "black", fontSize: 24, marginBottom: 20 },
   image: { width: 250, height: 300, marginBottom: 20 },
