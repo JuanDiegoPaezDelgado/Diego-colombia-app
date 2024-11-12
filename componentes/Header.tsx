@@ -12,46 +12,17 @@ export type HeaderProps = {
   isDarkMode: boolean;
 };
 
-const Header = ({
-  setDisplayMyQR,
-  handleDarkMode,
-  isDarkMode, 
-}: HeaderProps) => {
+const Header = () => {
   return (
     <View style={styles.topContainer}>
-      <Text
-        style={
-          isDarkMode
-            ? styles.firsttoprowContainer
-            : styles.darkfirsttoprowContainer
-        }
-      >
-        {headerData[0].text}
-      </Text>
-      <View
-        style={
-          isDarkMode
-            ? styles.rowTopSecondContainer
-            : styles.darkRowTopSecondContainer
-        }
-      >
-        <Pressable
-          style={styles.buttonruta}
-          onPress={() => setDisplayMyQR(true)}
-        >
-          <Text style={[styles.bar, styles.shadoxboxing]}>
-            {headerData[2].text}
-          </Text>
-        </Pressable>
-        <Button
-          onPress={() => setDisplayMyQR(false)}
-          title={headerData[1].text}
-          color={isDarkMode ? "darkgray" : "lightgray"}
-          accessibilityLabel="Un botón pal QR"
-        />
+      <Text style={styles.firsttoprowContainer}>{headerData[0].text}</Text>
+      <View style={styles.rowTopSecondContainer}>
+        <Text style={[styles.bar, styles.shadoxboxing]}>
+          {headerData[2].text}
+        </Text>
 
         {
-          <Pressable style={styles.darkicon} onPress={handleDarkMode}>
+          <Pressable style={styles.darkicon}>
             <Ionicons name="contrast" size={24} color="black" />
           </Pressable>
         }
