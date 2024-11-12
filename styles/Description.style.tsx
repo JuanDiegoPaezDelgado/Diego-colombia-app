@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "100%",
+    height: "87.5%",
     backgroundColor: "#ffc9c9",
   },
   darkBodyTails: {

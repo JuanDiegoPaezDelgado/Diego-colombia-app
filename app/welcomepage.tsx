@@ -1,13 +1,9 @@
-// src/screens/WelcomePage.js
-
 import { View, Text, Image, Button } from "react-native";
 import React from "react";
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import { lightTheme } from "../styles/theme";
 
 const WelcomePage = () => {
-  const router = useRouter();
-
   return (
     <View
       style={{
@@ -24,7 +20,10 @@ const WelcomePage = () => {
         source={require("../assets/welcome.jpg")}
         style={{ width: 150, height: 150, marginBottom: 20 }}
       />
-      <Link href={"/hobbies"}>
+      <Link
+        style={{ padding: 10, backgroundColor: "lightblue" }}
+        href={"/hobbies"}
+      >
         <Text>Ir al portafolio</Text>
       </Link>
     </View>
