@@ -1,30 +1,17 @@
-import { View, Text, Image, Button } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
-import { lightTheme } from "../styles/theme";
+import { styles } from "../styles/welcome.styles";
 
 const WelcomePage = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: lightTheme.background,
-      }}
-    >
-      <Text style={{ color: lightTheme.text, fontSize: 24, marginBottom: 20 }}>
-        Bienvenido a mi App
-      </Text>
-      <Image
-        source={require("../assets/welcome.jpg")}
-        style={{ width: 150, height: 150, marginBottom: 20 }}
-      />
-      <Link
-        style={{ padding: 10, backgroundColor: "lightblue" }}
-        href={"/hobbies"}
-      >
-        <Text>Ir al portafolio</Text>
+    <View style={styles.container}>
+      <Text style={styles.welcomeText}>Bienvenido a mi App</Text>
+      <Text style={styles.welcomeText}> Espero disfrutes!!</Text>
+      <Image source={require("../assets/welcome.jpg")} style={styles.image} />
+      <Link style={[styles.link, styles.welcomeText]} href={"/hobbies"}>
+        <Text>Ir al portafolio{"\n"}</Text>
+        <Text>{"--------------------->"}</Text>
       </Link>
     </View>
   );
