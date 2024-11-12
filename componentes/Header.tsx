@@ -1,17 +1,22 @@
 import React from "react";
-import { View, Text, Pressable, Button } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { styles } from "../styles/Header.styles";
+import { View, Text, Image } from "react-native";
+
 import { headerData } from "../Data/DataHeader";
+import { descriptionData } from "../Data/DescriptionData";
+import { styles } from "../styles/Header.styles";
 
 const Header = () => {
   return (
     <View style={styles.topContainer}>
       <Text style={styles.firsttoprowContainer}>{headerData[0].text}</Text>
       <View style={styles.rowTopSecondContainer}>
-        <Text style={[styles.bar, styles.shadoxboxing]}>
-          {headerData[2].text}
-        </Text>
+        <View style={styles.container}>
+          <Image style={styles.avatar} source={descriptionData.image} />
+          <View style={styles.card}>
+            <Text style={styles.title}>{descriptionData.title}</Text>
+            <Text>{descriptionData.description}</Text>
+          </View>
+        </View>
       </View>
     </View>
   );

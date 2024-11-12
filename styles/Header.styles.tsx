@@ -2,16 +2,16 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   topContainer: {
-    height: "14.9%",
-    paddingTop: 50,
+    height: "25%",
+    paddingTop: 38,
     width: "100%",
     borderColor: "orange",
     borderWidth: 1,
   },
-  darkicon: {
-    marginLeft: 50,
-    borderWidth: 2,
-    borderColor: "black",
+  avatar: {
+    height: 90,
+    width: 90,
+    borderRadius: 100,
   },
   firsttoprowContainer: {
     backgroundColor: "#ffec99",
@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     borderColor: "orange",
     borderWidth: 1,
+    width: "100%",
   },
   darkfirsttoprowContainer: {
     backgroundColor: "white",
@@ -35,6 +36,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "orange",
     borderWidth: 1,
+    width: "100%",
   },
   darkRowTopSecondContainer: {
     flexDirection: "row",
@@ -46,23 +48,25 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
 
-  shadoxboxing: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.43,
-    shadowRadius: 9.51,
-    elevation: 15,
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "120%",
+    gap: 20,
   },
-  bar: {
-    color: "black",
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    marginLeft: 0,
+  card: {
+    backgroundColor: "#ffec99",
+    padding: 5,
+    borderRadius: 10,
+    width: "54%",
+    borderColor: "orange",
+    borderWidth: 1,
   },
-  darkbutton: {
-    color: "black",
+  title: {
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 20,
+    color: "blue",
   },
 });

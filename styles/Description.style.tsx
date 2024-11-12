@@ -1,27 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  avatar: {
-    height: 90,
-    width: 90,
-    borderRadius: 100,
-  },
-  container: { flexDirection: "row", alignItems: "center" },
-  card: {
-    margin: 10,
-    backgroundColor: "#ffec99",
-    padding: 10,
-    borderRadius: 10,
-    width: "70%",
-    borderColor: "orange",
-    borderWidth: 1,
-  },
-  title: {
-    textAlign: "center",
-    fontWeight: "700",
-    fontSize: 20,
-    color: "blue",
-  },
   titleText: {
     color: "blue",
     fontWeight: "900",
@@ -36,14 +15,6 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     height: "87.5%",
     backgroundColor: "#ffc9c9",
-  },
-  darkBodyTails: {
-    marginTop: 0,
-    width: "100%",
-    borderColor: "white",
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: "87.5%",
   },
   CentrarcodigoQR: {
     justifyContent: "center",
