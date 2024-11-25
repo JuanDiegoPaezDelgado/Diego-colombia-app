@@ -1,6 +1,7 @@
 {
   "expo": {
     "scheme": "your-app-scheme",
+    "newArchEnabled": true,
     "name": "PGL-PRACTICA2",
     "slug": "PGL-PRACTICA2",
     "version": "1.0.0",

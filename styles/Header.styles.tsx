@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   topContainer: {
     height: "25%",
-    paddingTop: 38,
+    paddingTop: 34,
     width: "100%",
     borderColor: "orange",
     borderWidth: 1,
