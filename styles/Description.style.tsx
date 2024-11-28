@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     height: "85.5%",
-    backgroundColor: "#ffc9c9",
+    backgroundColor: "#E6E6FA",
   },
   CentrarcodigoQR: {
     justifyContent: "center",
