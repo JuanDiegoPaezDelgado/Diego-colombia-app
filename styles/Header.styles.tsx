@@ -3,10 +3,8 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   topContainer: {
     height: "25%",
-    paddingTop: 38,
+    paddingTop: 34,
     width: "100%",
-    borderColor: "orange",
-    borderWidth: 1,
   },
   avatar: {
     height: 90,
@@ -14,12 +12,11 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
   },
   firsttoprowContainer: {
-    backgroundColor: "#ffec99",
+    backgroundColor: "#E6E6FA",
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 30,
-    borderColor: "orange",
-    borderWidth: 1,
+    paddingTop: 1,
     width: "100%",
   },
   darkfirsttoprowContainer: {
@@ -31,11 +28,11 @@ export const styles = StyleSheet.create({
   rowTopSecondContainer: {
     flex: 1,
     alignContent: "center",
-    backgroundColor: "#ffec99",
+    backgroundColor: "#E6E6FA",
+    borderTopWidth: 0,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "orange",
-    borderWidth: 1,
+
     width: "100%",
   },
   darkRowTopSecondContainer: {
@@ -56,7 +53,7 @@ export const styles = StyleSheet.create({
     gap: 20,
   },
   card: {
-    backgroundColor: "#ffec99",
+    backgroundColor: "#E6E6FA",
     padding: 5,
     borderRadius: 10,
     width: "54%",
