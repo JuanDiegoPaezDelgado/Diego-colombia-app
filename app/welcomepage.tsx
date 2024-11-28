@@ -15,6 +15,10 @@ const WelcomePage = () => {
         <Text>Ir al portafolio{"\n"}</Text>
         <Text>{"--------------------->"}</Text>
       </Link>
+      <Link style={[styles.link, styles.welcomeText]} href={"store/mystore"}>
+        <Text>Ir a la tiendita{"\n"}</Text>
+        <Text>{"--------------------->"}</Text>
+      </Link>
     </View>
   );
 };
