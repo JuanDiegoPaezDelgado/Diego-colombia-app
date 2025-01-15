@@ -10,9 +10,9 @@ export default function RootLayout() {
       <Drawer.Screen
         name="welcomepage"
         options={{
-          headerShown: true,
-          drawerIcon: ({ color, size }) => (
-            <FontAwesome name="home" size={size} color={color} />
+          headerShown: false,
+          drawerIcon: () => (
+            <FontAwesome name="home" size={24} color="black" />
           ),
           title: "Home",
         }}
@@ -20,8 +20,8 @@ export default function RootLayout() {
       <Drawer.Screen
         name="store/mystore"
         options={{
-          headerShown: true,
-          drawerIcon: ({ color, size }) => (
+          headerShown: false,
+          drawerIcon: () => (
             <AntDesign name="shoppingcart" size={24} color="black" />
           ),
           title: "Store",
@@ -32,7 +32,7 @@ export default function RootLayout() {
         name="(tabs)"
         options={{
           headerShown: true,
-          drawerIcon: ({ color, size }) => (
+          drawerIcon: () => (
             <Entypo name="list" size={24} color="black" />
           ),
           title: "My Portfolio",

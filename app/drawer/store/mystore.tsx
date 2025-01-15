@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import uuid from "react-native-uuid";
-import AddProductModal, { Product } from "./addModal";
+import AddProductModal, { Product } from "../../addModal";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 const ShoppingListScreen = () => {
@@ -48,19 +48,19 @@ const ShoppingListScreen = () => {
   const getCategoryImage = (category: string) => {
     switch (category) {
       case "Panaderia":
-        return require("../../assets/categorias/panaderia.jpg");
+        return require("../../../assets/categorias/panaderia.jpg");
       case "Bebidas":
-        return require("../../assets/categorias/bebidas.jpg");
+        return require("../../../assets/categorias/bebidas.jpg");
       case "Enlatados":
-        return require("../../assets/categorias/enlatados.jpg");
+        return require("../../../assets/categorias/enlatados.jpg");
       case "Carnes":
-        return require("../../assets/categorias/carnes.jpg");
+        return require("../../../assets/categorias/carnes.jpg");
       case "Pescados":
-        return require("../../assets/categorias/pescados.jpg");
+        return require("../../../assets/categorias/pescados.jpg");
       case "Frutas/Verduras":
-        return require("../../assets/categorias/frutas.jpg");
+        return require("../../../assets/categorias/frutas.jpg");
       case "Otros":
-        return require("../../assets/categorias/otros.jpg");
+        return require("../../../assets/categorias/otros.jpg");
       default:
         return null;
     }
