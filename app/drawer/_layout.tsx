@@ -31,7 +31,7 @@ export default function RootLayout() {
 <Drawer.Screen
         name="(tabs)"
         options={{
-          headerShown: true,
+          headerShown: false,
           drawerIcon: () => (
             <Entypo name="list" size={24} color="black" />
           ),
