@@ -31,7 +31,7 @@ const ShoppingListScreen = () => {
     },
   ]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [productToEdit, setProductToEdit] = useState(null);
+  const [productToEdit, setProductToEdit] = useState<Product | null>(null);
 
   const totalPrice = products.reduce(
     (total, product) =>
@@ -100,7 +100,7 @@ const ShoppingListScreen = () => {
         <View>
           {products.length > 0 ? (
             <>
-              <View style={{ height: 645 }}>
+              <View style={{ height: 577 }}>
                 <FlatList
                   style={{}}
                   data={products}
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 20,
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 20,
