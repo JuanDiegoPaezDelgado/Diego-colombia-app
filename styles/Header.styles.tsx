@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   topContainer: {
     height: "25%",
-    paddingTop: 0,// subir si se usa stack
+    marginTop: 30,// subir si se usa stack
     width: "100%",
   },
   avatar: {
