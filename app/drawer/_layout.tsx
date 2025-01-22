@@ -39,6 +39,7 @@ export default function RootLayout() {
                 <Entypo name="list" size={24} color="black" />
               ),
               title: "My Portfolio",
+              
             }}
           />
           
