@@ -90,7 +90,7 @@ const ShoppingListScreen = () => {
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Lista de la Compra</Text>
+          <Text style={styles.title}>Lista de la Compras</Text>
           <View style={[styles.cartCounter]}>
             <AntDesign name="shoppingcart" size={24} color="black" />
             <Text style={styles.cartCounterText}>{productsInCart}</Text>
@@ -100,7 +100,7 @@ const ShoppingListScreen = () => {
         <View>
           {products.length > 0 ? (
             <>
-              <View style={{ height: 577 }}>
+              <View style={{ height: 653 }}>
                 <FlatList
                   style={{}}
                   data={products}
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 40,
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 20,
