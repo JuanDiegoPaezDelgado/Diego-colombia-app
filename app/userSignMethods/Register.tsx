@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { Link, useRouter } from "expo-router";
+import ApiService from "../service/apiService";
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
@@ -54,42 +55,33 @@ const Register = () => {
     }
 
     try {
-      const apiUrl = "http://192.168.1.135:5000/auth/register";
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ fullname, email, pswd: password }),
-      });
+      const result = await ApiService.register(fullname, email, password);
 
-      if (response.status === 201) {
+      if (result.status === 201) {
         Alert.alert("Registrado", "El registro ha sido completado!");
-        Alert.alert("Registro exitoso");
         router.navigate("/userSignMethods/Login");
-      } else if (response.status === 400) {
+      } else if (result.status === 400) {
         Alert.alert(
           "Error en el servidor",
           "La solicitud no pudo ser procesada"
         );
-      } else if (response.status === 409) {
+      } else if (result.status === 409) {
         Alert.alert(
           "Usuario ya existe",
           "Ya existe un usuario registrado con ese email."
         );
       } else {
-        const errorData = await response.json();
         Alert.alert(
           "Error en el registro",
-          errorData.message || "Algo salió mal durante el registro."
+          result.data.message || "Algo salió mal durante el registro."
         );
       }
     } catch (error) {
-      console.error("Error de red o al llamar a la API:", error);
-      Alert.alert(
-        "Error",
-        "Error al conectar con el servidor. Inténtalo de nuevo."
-      );
+      if (error instanceof Error) {
+        Alert.alert("Error", error.message);
+      } else {
+        Alert.alert("Error", "Unknown error occurred");
+      }
     }
   };
 
