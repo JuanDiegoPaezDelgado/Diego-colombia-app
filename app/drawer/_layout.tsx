@@ -21,7 +21,7 @@ export default function RootLayout() {
             }}
           />
           <Drawer.Screen
-            name="store/mystore"
+            name="store/mystore"  
             options={{
               headerShown: false,
               drawerIcon: () => (
