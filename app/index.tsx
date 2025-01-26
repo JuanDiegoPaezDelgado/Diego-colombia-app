@@ -1,35 +1,29 @@
-import { useEffect } from "react";
-
-import { router } from "expo-router";
-
+import React, { useState, useEffect } from "react";
+import { useRouter } from "expo-router";
+import { View, Text, StyleSheet } from "react-native";
 import { asyncStorageService } from "../app/userSignMethods/asyncStorageService";
+import Login from "../app/userSignMethods/Register";
 
-const StartPage = () => {
-  const USER_TOKEN_KEY = asyncStorageService.KEYS.userToken;
+export default function StartPage() {
+  const router = useRouter();
 
   useEffect(() => {
-    const checkUserToken = async () => {
+    const checkTokenAndNavigate = async () => {
       try {
-        const token = await asyncStorageService.get<string>(USER_TOKEN_KEY);
-
-        const isTokenValid = token != null;
-
-        if (isTokenValid) {
+        const token = await asyncStorageService.get(
+          asyncStorageService.KEYS.userToken
+        );
+        if (token) {
           router.replace("/drawer/welcomepage");
         } else {
           router.replace("/userSignMethods/Register");
         }
       } catch (error) {
-        console.error("Error al verificar el token:", error);
-
+        console.error("Error checking token:", error);
         router.replace("/userSignMethods/Register");
       }
     };
 
-    checkUserToken();
+    checkTokenAndNavigate();
   }, []);
-
-  return null;
-};
-
-export default StartPage;
+}

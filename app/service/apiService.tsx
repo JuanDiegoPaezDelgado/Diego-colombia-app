@@ -1,3 +1,5 @@
+import { asyncStorageService } from "../userSignMethods/asyncStorageService";
+
 const API_MAIN_URL = "http://192.168.1.135:5000";
 
 const ApiService = {
@@ -38,6 +40,7 @@ const ApiService = {
       });
 
       const data = await response.json();
+      await asyncStorageService.save(asyncStorageService.KEYS.userToken, data);
 
       return {
         status: response.status,

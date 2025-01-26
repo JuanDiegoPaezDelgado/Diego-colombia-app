@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Pressable,
 } from "react-native";
 import { Link, useRouter } from "expo-router";
 import ApiService from "../service/apiService";
@@ -54,7 +55,7 @@ const Login = () => {
       const result = await ApiService.login(email, password);
 
       if (result.status == 201) {
-        Alert.alert("Login exitoso", "Bienvenido de nuevo!");
+        Alert.alert("Loggeado !!", "Bienvenido de nuevo!");
 
         await asyncStorageService.save(
           asyncStorageService.KEYS.userToken,
@@ -63,7 +64,7 @@ const Login = () => {
 
         router.navigate("../drawer/welcomepage");
       } else if (result.status == 401) {
-        Alert.alert("Login fallido", "Credenciales incorrectas");
+        Alert.alert("Login fallido", "Campos de inicio incorrectos");
       } else {
         Alert.alert(
           "Error",
@@ -96,9 +97,9 @@ const Login = () => {
           onChangeText={setPassword}
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Pressable style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
-        </TouchableOpacity>
+        </Pressable>
 
         <Text style={styles.loginLink}>
           Si no tienes cuenta entonces{" "}
