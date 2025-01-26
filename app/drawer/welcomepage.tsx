@@ -1,10 +1,18 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import React from "react";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { styles } from "../../styles/welcome.styles";
 import { StatusBar } from "expo-status-bar";
+import { asyncStorageService } from "../userSignMethods/asyncStorageService";
 
 const WelcomePage = () => {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await asyncStorageService.remove(asyncStorageService.KEYS.userToken);
+    router.replace("../userSignMethods/Login");
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" backgroundColor="#000000" />
@@ -14,16 +22,25 @@ const WelcomePage = () => {
         source={require("../../assets/welcome.jpg")}
         style={styles.image}
       />
-      {/* <Link style={[styles.link, styles.welcomeText]} href={"/hobbies"}>
-        <Text>Ir al portafolio{"\n"}</Text>
-        <Text>{"--------------------->"}</Text>
-      </Link>
-      <Link style={[styles.link, styles.welcomeText]} href={"store/mystore"}>
-        <Text>Ir a la tiendita{"\n"}</Text>
-        <Text>{"--------------------->"}</Text>
-      </Link> */}
+      <Pressable style={customStyles.logoutButton} onPress={handleLogout}>
+        <Text style={customStyles.logoutText}>Cerrar Sesión</Text>
+      </Pressable>
     </View>
   );
 };
 
 export default WelcomePage;
+
+const customStyles = {
+  logoutButton: {
+    backgroundColor: "#f44336",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  logoutText: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+};

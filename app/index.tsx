@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "expo-router";
-import { View, Text, StyleSheet } from "react-native";
+
 import { asyncStorageService } from "../app/userSignMethods/asyncStorageService";
-import Login from "../app/userSignMethods/Register";
 
 export default function StartPage() {
   const router = useRouter();
@@ -16,11 +15,11 @@ export default function StartPage() {
         if (token) {
           router.replace("/drawer/welcomepage");
         } else {
-          router.replace("/userSignMethods/Register");
+          router.replace("/userSignMethods/Login");
         }
       } catch (error) {
-        console.error("Error checking token:", error);
-        router.replace("/userSignMethods/Register");
+        console.error("Error al leer el token:", error);
+        router.replace("/userSignMethods/Login");
       }
     };
 

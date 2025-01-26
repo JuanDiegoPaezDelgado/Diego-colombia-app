@@ -55,7 +55,7 @@ const Login = () => {
       const result = await ApiService.login(email, password);
 
       if (result.status == 201) {
-        Alert.alert("Loggeado !!", "Bienvenido de nuevo!");
+        Alert.alert("Loggeado !!", "Bienvenido a mi app");
 
         await asyncStorageService.save(
           asyncStorageService.KEYS.userToken,
