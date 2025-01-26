@@ -6,6 +6,7 @@ import {
   Button,
   StyleSheet,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import { Link } from "expo-router";
 
@@ -26,9 +27,9 @@ const Register = () => {
           placeholder="Contraseña"
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
+        <Pressable style={styles.button} onPress={() => {}}>
           <Text style={styles.buttonText}>Registrarse</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.loginLink}>
           Si ya tienes una cuenta entonces{" "}
           <Link style={styles.linkText} href={"/userSignMethods/Login"}>
