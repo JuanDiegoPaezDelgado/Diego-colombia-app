@@ -1,6 +1,6 @@
 import { asyncStorageService } from "../userSignMethods/asyncStorageService";
 
-const API_MAIN_URL = "http://192.168.1.135:5000";
+const API_MAIN_URL = "http://172.16.100.243:5000";
 
 const ApiService = {
   async register(fullname: string, email: string, password: string) {
