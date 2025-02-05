@@ -12,11 +12,13 @@ const DescriptionCard = () => {
         <View>
           <Text style={styles.titleText}>Cosas que me gustan mucho:</Text>
           <FlatList
+            style={{ height: 500 }}
             data={cardsData}
             renderItem={({ item }) => <Card text={item.text} />}
           />
           <Text style={styles.titleText}>Cosas que no me gustan mucho:</Text>
           <FlatList
+            style={{ height: 750 }}
             data={dontLikeCardsData}
             renderItem={({ item }) => <Card text={item.text} />}
           />
