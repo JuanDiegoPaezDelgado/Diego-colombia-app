@@ -51,6 +51,36 @@ const ApiService = {
       throw new Error("error con la api o la red");
     }
   },
+
+  async getAllImages() {
+    const apiUrl = `${API_MAIN_URL}/images/get-all`;
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Error al obtener imágenes:", response.status, data);
+        throw new Error(
+          data.message || "Error al obtener las imágenes del servidor."
+        );
+      }
+
+      return {
+        status: response.status,
+        data: data.object,
+      };
+    } catch (error) {
+      console.error("Error de la api al obtener imagenes", error);
+      throw new Error("Error de red o al procesar la respuesta de la api.");
+    }
+  },
 };
 
 export default ApiService;
