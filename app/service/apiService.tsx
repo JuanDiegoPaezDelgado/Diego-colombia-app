@@ -40,7 +40,19 @@ const ApiService = {
       });
 
       const data = await response.json();
-      await asyncStorageService.save(asyncStorageService.KEYS.userToken, data);
+      console.log("Login Response Status:", response.status);
+      console.log("Full Login Response Data:", data);
+
+      if (data && data.object && data.object.token) {
+        const tokenString = data.object.token;
+        await asyncStorageService.save(
+          asyncStorageService.KEYS.userToken,
+          tokenString
+        );
+        console.log("Token string saved to AsyncStorage:", tokenString);
+      } else {
+        console.error("Token not found in login response data!");
+      }
 
       return {
         status: response.status,
@@ -54,12 +66,17 @@ const ApiService = {
 
   async getAllImages() {
     const apiUrl = `${API_MAIN_URL}/images/get-all`;
+    const token = await asyncStorageService.get(
+      asyncStorageService.KEYS.userToken
+    );
+    console.log("Token recuperado de AsyncStorage para getAllImages:", token);
 
     try {
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
