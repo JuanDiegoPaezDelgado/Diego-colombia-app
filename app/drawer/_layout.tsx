@@ -37,6 +37,17 @@ export default function RootLayout() {
             title: "My Portfolio",
           }}
         />
+
+        <Drawer.Screen
+          name="camera/cameraDrawer"
+          options={{
+            headerShown: false,
+            drawerIcon: () => (
+              <AntDesign name="camera" size={24} color="black" />
+            ),
+            title: "Camera",
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );
