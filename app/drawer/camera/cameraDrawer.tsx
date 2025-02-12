@@ -11,9 +11,8 @@ import React, { useState, useEffect } from "react";
 import ApiService from "../../service/apiService";
 import CameraComponent from "../../../componentes/Camera";
 import LoadingComponent from "../../../componentes/LoadingComponent";
-import { useRouter } from "expo-router";
 
-const cameraDrawer = () => {
+const CameraDrawer = () => {
   const [images, setImages] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,21 +20,28 @@ const cameraDrawer = () => {
   const [selectedImage, setSelectedImage] = useState<any | null>(null);
   const [isCameraVisible, setIsCameraVisible] = useState<boolean>(false);
   const [isSavingImage, setIsSavingImage] = useState<boolean>(false);
-  const router = useRouter();
+
+  const getImageUri = (base64Data: string) => {
+    if (!base64Data) return "";
+
+    const cleanBase64 = base64Data.replace(/[\r\n]/g, "").trim();
+    console.log(cleanBase64.substring(0, 5));
+    return `data:image/jpeg;base64,${cleanBase64}`;
+  };
 
   const loadImages = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await ApiService.getAllImages();
-      console.log("API getAllImages response:", response);
-      console.log("API getAllImages response.data:", response.data);
-      console.log(
-        "API getAllImages response.data.object:",
-        response.data.object
-      );
-      setImages(response.data.object);
-      console.log("Images state updated:", response.data.object);
+      console.log("Número de imágenes recibidas:", response.data.object.length);
+
+      const validImages = response.data.object.map((img: any) => ({
+        ...img,
+        encodedData: img.encodedData.replace(/[\r\n]/g, ""),
+      }));
+
+      setImages(validImages);
       setLoading(false);
     } catch (err: any) {
       console.error("Error al cargar imágenes:", err);
@@ -59,13 +65,12 @@ const cameraDrawer = () => {
     setIsCameraVisible(false);
 
     try {
-      const response = await ApiService.saveImage(
-        base64ImageData,
-        width,
-        height
+      const cleanBase64 = base64ImageData.replace(
+        /^data:image\/\w+;base64,/,
+        ""
       );
-      console.log("Imagen guardada exitosamente:", response);
-      loadImages();
+      await ApiService.saveImage(cleanBase64, width, height);
+      await loadImages();
     } catch (err: any) {
       console.error("Error al guardar la imagen:", err);
       setError("Error al guardar la imagen. Inténtalo de nuevo.");
@@ -74,22 +79,10 @@ const cameraDrawer = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <LoadingComponent message="Cargando imágenes..." />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>Error al cargar las imágenes:</Text>
-        <Text style={styles.errorText}>{error}</Text>
-      </View>
-    );
-  }
+  const handleImageClick = (image: any) => {
+    console.log("Imagen seleccionada:", image);
+    setSelectedImage(image);
+  };
 
   return (
     <View style={styles.container}>
@@ -97,10 +90,12 @@ const cameraDrawer = () => {
         <View style={styles.fullScreenContainer}>
           <Image
             style={styles.fullScreenImage}
-            source={{
-              uri: `data:image/png;base64,${selectedImage.encodedData}`,
-            }}
+            source={{ uri: getImageUri(selectedImage.encodedData) }}
             resizeMode="contain"
+            onError={(error) => {
+              console.error("error al abrir en pantalla completa", error);
+              setError("Error al cargar la imagen en pantalla completa");
+            }}
           />
           <TouchableOpacity
             style={styles.closeIconContainer}
@@ -114,18 +109,20 @@ const cameraDrawer = () => {
       {images.length === 0 && !loading && !error && (
         <Text style={styles.message}>No hay imágenes guardadas.</Text>
       )}
-
       {images.length > 0 && (
         <FlatList
           data={images}
           keyExtractor={(item) => item.id.toString()}
           numColumns={3}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setSelectedImage(item)}>
-              <View style={styles.thumbnailContainer}>
+            <TouchableOpacity onPress={() => handleImageClick(item)}>
+              <View style={styles.imageContainer}>
                 <Image
-                  style={styles.thumbnail}
-                  source={{ uri: `data:image/png;base64,${item.encodedData}` }}
+                  style={styles.imageFrame}
+                  source={{ uri: getImageUri(item.encodedData) }}
+                  onError={(error) => {
+                    console.error("Error loading image:", item.id, error);
+                  }}
                 />
               </View>
             </TouchableOpacity>
@@ -133,7 +130,6 @@ const cameraDrawer = () => {
         />
       )}
 
-      {}
       {!isCameraVisible && (
         <Button
           title="Take a Picture"
@@ -143,12 +139,7 @@ const cameraDrawer = () => {
 
       {isCameraVisible && (
         <>
-          <View
-            style={[
-              styles.cameraContainer,
-              !isCameraVisible && styles.cameraContainerHidden,
-            ]}
-          >
+          <View style={styles.cameraContainer}>
             <CameraComponent
               setLastPicture={setLastPicture}
               onPictureTaken={handleSaveImage}
@@ -172,7 +163,10 @@ const cameraDrawer = () => {
         {lastPicture && (
           <Image
             style={styles.lastImage}
-            source={{ uri: `data:image/jpg;base64,${lastPicture}` }}
+            source={{ uri: getImageUri(lastPicture) }}
+            onError={(error) => {
+              console.error("Error loading last picture:", error);
+            }}
           />
         )}
       </View>
@@ -197,22 +191,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: "red",
   },
-  thumbnailContainer: {
+  imageContainer: {
     flex: 1,
     aspectRatio: 1,
     margin: 5,
     maxWidth: "30%",
   },
-  thumbnail: {
-    flex: 1,
-    borderRadius: 8,
+  imageFrame: {
+    width: 100,
+    height: 100,
+    backgroundColor: "red",
   },
   cameraContainer: {
     flex: 1,
     marginTop: 20,
-  },
-  cameraContainerHidden: {
-    display: "none",
   },
   lastImageContainer: {
     width: 55,
@@ -222,7 +214,6 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     backgroundColor: "lightgray",
-    display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -263,4 +254,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default cameraDrawer;
+export default CameraDrawer;

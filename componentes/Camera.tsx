@@ -1,5 +1,5 @@
 import { Button, Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -16,27 +16,68 @@ const Camera = ({ setLastPicture, onPictureTaken }: CameraProps) => {
   console.log("Camera Component Rendered");
   const cameraRef = useRef<CameraView>(null);
   const [permission, requestPermission] = useCameraPermissions();
+  const [isCapturing, setIsCapturing] = useState(false);
 
   const [facing, setFacing] = useState<CameraType>("back");
   const [flash, setFlash] = useState<boolean>(false);
 
-  const toggleFacing = () =>
-    setFacing((face) => (face === "back" ? "front" : "back"));
+  const toggleFacing = useCallback(
+    () => setFacing((face) => (face === "back" ? "front" : "back")),
+    []
+  );
 
-  const toggleFlash = () => setFlash((flash) => !flash);
+  const toggleFlash = useCallback(() => setFlash((flash) => !flash), []);
 
   const takePicture = async () => {
-    console.log("taking picture...");
-    const picture = await cameraRef.current?.takePictureAsync({ base64: true });
+    if (isCapturing) return;
 
-    if (picture != null && picture.base64 != null) {
-      setLastPicture(picture.base64);
+    try {
+      setIsCapturing(true);
+      console.log("Taking picture...");
 
-      onPictureTaken(picture.base64, picture.width || 0, picture.height || 0);
-    } else {
-      alert("Ocurrió un error sacando una foto.");
+      const picture = await cameraRef.current?.takePictureAsync({
+        base64: true,
+        quality: 0.8,
+        imageType: "jpg",
+        skipProcessing: false,
+      });
+
+      if (picture?.base64) {
+        console.log("Picture taken successfully");
+        console.log("Image dimensions:", {
+          width: picture.width,
+          height: picture.height,
+        });
+        console.log("Base64 data length:", picture.base64.length);
+
+        const width = picture.width || 0;
+        const height = picture.height || 0;
+
+        if (width === 0 || height === 0) {
+          throw new Error("Invalid image dimensions");
+        }
+
+        const base64Data = picture.base64.replace(
+          /^data:image\/\w+;base64,/,
+          ""
+        );
+
+        setLastPicture(base64Data);
+        onPictureTaken(base64Data, width, height);
+      } else {
+        throw new Error("No base64 data received from camera");
+      }
+    } catch (error) {
+      console.error("Error taking picture:", error);
+      alert("Ocurrió un error al tomar la foto. Por favor, intenta de nuevo.");
+    } finally {
+      setIsCapturing(false);
     }
   };
+
+  const handleCameraReady = useCallback(() => {
+    console.log("Camera ready!");
+  }, []);
 
   if (!permission) {
     return <View />;
@@ -53,28 +94,46 @@ const Camera = ({ setLastPicture, onPictureTaken }: CameraProps) => {
       facing={facing}
       mode="picture"
       ref={cameraRef}
-      onCameraReady={() => console.log("Camera ready!")}
+      onCameraReady={handleCameraReady}
+      format={{ photoFormat: "jpeg" }}
     >
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.iconButton} onPress={toggleFlash}>
+        <Pressable
+          style={styles.iconButton}
+          onPress={toggleFlash}
+          disabled={isCapturing}
+        >
           <Ionicons
             name={flash ? "flash-off" : "flash"}
             size={32}
-            color="black"
+            color={isCapturing ? "gray" : "black"}
           />
         </Pressable>
-        <Pressable style={styles.pictureButton} onPress={takePicture}>
+        <Pressable
+          style={[
+            styles.pictureButton,
+            isCapturing && styles.pictureButtonDisabled,
+          ]}
+          onPress={takePicture}
+          disabled={isCapturing}
+        >
           <Text> </Text>
         </Pressable>
-        <Pressable style={styles.iconButton} onPress={toggleFacing}>
-          <Ionicons name="camera-reverse" size={32} color="black" />
+        <Pressable
+          style={styles.iconButton}
+          onPress={toggleFacing}
+          disabled={isCapturing}
+        >
+          <Ionicons
+            name="camera-reverse"
+            size={32}
+            color={isCapturing ? "gray" : "black"}
+          />
         </Pressable>
       </View>
     </CameraView>
   );
 };
-
-export default Camera;
 
 const styles = StyleSheet.create({
   message: {
@@ -98,7 +157,7 @@ const styles = StyleSheet.create({
   iconButton: {
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: "50%",
+    borderRadius: 50,
     borderColor: "gray",
     borderWidth: 2,
     padding: 8,
@@ -108,8 +167,14 @@ const styles = StyleSheet.create({
     width: 80,
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: "50%",
+    borderRadius: 50,
     borderColor: "gray",
     borderWidth: 6,
   },
+  pictureButtonDisabled: {
+    opacity: 0.5,
+    borderColor: "#ccc",
+  },
 });
+
+export default Camera;

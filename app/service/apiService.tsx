@@ -1,6 +1,6 @@
 import { asyncStorageService } from "../userSignMethods/asyncStorageService";
 
-const API_MAIN_URL = "http://192.168.1.135:5000";
+const API_MAIN_URL = "http://192.168.43.3:5000";
 
 const ApiService = {
   async register(fullname: string, email: string, password: string) {
@@ -69,19 +69,20 @@ const ApiService = {
     const token = await asyncStorageService.get(
       asyncStorageService.KEYS.userToken
     );
-    console.log("Token recuperado de AsyncStorage para getAllImages:", token);
+
+    if (!token) {
+      throw new Error("No token available");
+    }
 
     try {
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${await asyncStorageService.get(
-          asyncStorageService.KEYS.userToken
-        )}`,
+        Authorization: `Bearer ${token}`,
       };
 
       console.log(
-        "Headers object being sent in getAllImages request:",
-        headers
+        "Fetching images with token:",
+        token.substring(0, 10) + "..."
       );
 
       const response = await fetch(apiUrl, {
@@ -89,41 +90,49 @@ const ApiService = {
         headers: headers,
       });
 
-      const data = await response.json();
-      console.log(
-        "API getAllImages response - data AFTER response.json():",
-        data
-      );
-
-      console.log("API getAllImages response:", response);
-      console.log("API getAllImages response.data:", data);
-      console.log("API getAllImages response.data.object:", data.object);
-
       if (!response.ok) {
-        console.error(
-          "Error al obtener imágenes - response NOT OK:",
-          response.status,
-          data
-        );
-        throw new Error(
-          data.message || "Error al obtener las imágenes del servidor."
-        );
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      console.log("API getAllImages response - SUCCESS:", response);
+      const textData = await response.text();
+      console.log("Response size:", textData.length);
+
+      let jsonData;
+      try {
+        jsonData = JSON.parse(textData);
+        console.log("Parsed response data:", {
+          message: jsonData.message,
+          statusCode: jsonData.statusCode,
+          objectLength: jsonData.object?.length || 0,
+        });
+      } catch (parseError) {
+        console.error("Error parsing JSON:", parseError);
+        console.log("First 100 chars of response:", textData.substring(0, 100));
+        throw new Error("Invalid JSON response");
+      }
+
+      if (!jsonData.object || !Array.isArray(jsonData.object)) {
+        console.error("Invalid response structure:", jsonData);
+        throw new Error("Invalid response structure");
+      }
+
+      const validImages = jsonData.object.map((img, index) => {
+        if (!img.encodedData || !img.width || !img.height) {
+          console.warn(`Invalid image data at index ${index}:`, img);
+        }
+        return img;
+      });
+
       return {
         status: response.status,
-        data: data,
+        data: {
+          ...jsonData,
+          object: validImages,
+        },
       };
     } catch (error: any) {
-      console.error(
-        "Error de la api al obtener imagenes - CATCH BLOCK:",
-        error
-      );
-      if (error instanceof Error) {
-        console.error("Error message:", error.message);
-      }
-      throw new Error("Error de red o al procesar la respuesta de la api.");
+      console.error("Error in getAllImages:", error);
+      throw new Error(error.message || "Error fetching images");
     }
   },
 
@@ -138,33 +147,41 @@ const ApiService = {
     }
 
     try {
+      console.log("Saving image with dimensions:", { width, height });
+      console.log("Base64 data length:", encodedData.length);
+
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ encodedData, width, height }),
+        body: JSON.stringify({
+          encodedData: encodedData.replace(/^data:image\/\w+;base64,/, ""),
+          width,
+          height,
+        }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        console.error("Error al guardar imagen:", response.status, data);
-        throw new Error(
-          data.message || "Error al guardar la imagen en el servidor."
-        );
+        const errorText = await response.text();
+        console.error("Error response:", errorText);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      const jsonData = await response.json();
+      console.log("Save image response:", {
+        status: response.status,
+        message: jsonData.message,
+      });
 
       return {
         status: response.status,
-        data: data.object,
+        data: jsonData,
       };
-    } catch (error) {
-      console.error("Error llamando a la api para guardar imagen", error);
-      throw new Error(
-        "Error de red o al procesar la respuesta de la API al guardar imagen."
-      );
+    } catch (error: any) {
+      console.error("Error saving image:", error);
+      throw new Error(error.message || "Error saving image");
     }
   },
 };
